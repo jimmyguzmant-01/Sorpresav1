@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cuenta regresiva</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      color: white;
+      padding-top: 50px;
+      height: 100vh;
+      margin: 0;
+
+      /* 👉 Aquí van las 2 imágenes */
+      background-image: url("img/img2.jpeg"), url("img/img4.jpeg");
+      background-size: cover, 200px;          /* primera se ajusta a toda la pantalla, la segunda mide 200px */
+      background-position: center, top right;  /* posición de cada imagen */
+      background-repeat: no-repeat, no-repeat; /* que no se repitan */
+      
+    }
+
+    #contador {
+      font-size: 2.5em;
+      text-shadow: 2px 2px 5px black;
+    }
+    #mensaje {
+      font-size: 2em;
+      color: yellow;
+      margin-top: 20px;
+      display: none;
+      text-shadow: 2px 2px 5px black;
+    }
+  </style>
+</head>
+<body>
+  <h1>Una sorpresa te esta esperando 🎁</h1>
+  <div id="contador"></div>
+  <div id="mensaje">¡Sorpresa! Aquí está tu regalo 🎉</div>
+
+  <script>
+    // Fecha objetivo
+    let fechaObjetivo = new Date("2025-08-29T00:00:00").getTime();
+
+    let contador = document.getElementById("contador");
+    let mensaje = document.getElementById("mensaje");
+
+    let intervalo = setInterval(() => {
+      let ahora = new Date().getTime();
+      let diferencia = fechaObjetivo - ahora;
+
+      if (diferencia <= 0) {
+        clearInterval(intervalo);
+        contador.style.display = "none";
+        mensaje.style.display = "block";
+      } else {
+        let dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+        let horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+        let segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+        contador.textContent = `${dias}d ${horas}h ${minutos}m ${segundos}s`;
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
